@@ -143,18 +143,19 @@ int platform_check_permissions(struct region *region, struct secure_device* devi
 	if ((region->writer == device->id) && (dir == DIR_WRITE))
 			return 0;
 
-	if (IS_DECODER(region->writer) && (dir == DIR_READ) && IS_TRANSFORMER(device->id))
+	if (IS_DECODER(region->writer) && (dir != DIR_WRITE) && IS_TRANSFORMER(device->id))
 		if (STREAM_TYPE(region->writer) == STREAM_TYPE(device->id))
 			return 0;
 
-	if (IS_DECODER(region->writer) && (dir == DIR_READ) && IS_SINK(device->id))
+	if (IS_DECODER(region->writer) && (dir != DIR_WRITE) && IS_SINK(device->id))
 		if (STREAM_TYPE(region->writer) == STREAM_TYPE(device->id))
 			return 0;
 
-	if (IS_TRANSFORMER(region->writer) && (dir == DIR_READ) && IS_SINK(device->id))
+	if (IS_TRANSFORMER(region->writer) && (dir != DIR_WRITE) && IS_SINK(device->id))
 		if (STREAM_TYPE(region->writer) == STREAM_TYPE(device->id))
 			return 0;
 
+	IMSG("platform_check_permissions failed region->writer 0x%x dir %d device->id 0x%x\n", region->writer, dir, device->id);
 	return 1;
 }
 
