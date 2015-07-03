@@ -351,7 +351,7 @@ static void smaf_optee_revoke_access(void *ctx,
 	sdp_revoke_access(client, dev, addr, size, direction);
 }
 
-static int smaf_optee_allow_cpu_access(void *ctx, enum dma_data_direction direction)
+static bool smaf_optee_allow_cpu_access(void *ctx, enum dma_data_direction direction)
 {
 	return direction == DMA_TO_DEVICE;
 }
