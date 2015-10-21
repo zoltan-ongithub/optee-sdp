@@ -339,7 +339,7 @@ static bool smaf_optee_grant_access(void *ctx,
 {
 	struct sdp_client *client = ctx;
 
-	return !!sdp_grant_access(client, dev, addr, size, direction);
+	return !sdp_grant_access(client, dev, addr, size, direction);
 }
 
 static void smaf_optee_revoke_access(void *ctx,
@@ -357,8 +357,8 @@ static bool smaf_optee_allow_cpu_access(void *ctx, enum dma_data_direction direc
 }
 
 static struct smaf_secure smaf_optee_sec = {
-	.create_context = smaf_optee_create_context,
-	.destroy_context = smaf_optee_destroy_context,
+	.create_ctx = smaf_optee_create_context,
+	.destroy_ctx = smaf_optee_destroy_context,
 	.grant_access = smaf_optee_grant_access,
 	.revoke_access = smaf_optee_revoke_access,
 	.allow_cpu_access = smaf_optee_allow_cpu_access,
