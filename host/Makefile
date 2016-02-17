@@ -5,5 +5,11 @@ ccflags-y+=-I$(TA_DEV_KIT_DIR)
 
 obj-m += smaf-optee.o
 
+SRC := $(shell pwd)
+
 all:
-	$(MAKE) ARCH=$(ARCH) -C $(KDIR) M=$(CURDIR) modules
+	$(MAKE) ARCH=$(ARCH) -C $(KERNEL_SRC) M=$(SRC) modules
+
+
+clean:
+	rm -f *.o *ko .depend *.cmd *.mod.c
